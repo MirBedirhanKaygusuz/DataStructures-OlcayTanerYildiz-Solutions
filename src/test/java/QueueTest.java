@@ -4,7 +4,7 @@ import Array.Queue;
 public class QueueTest {
 
     public static void main(String[] args) {
-        Queue queue = new Queue(6);
+        Queue queue = new Queue(7);
         Element element1 = new Element(1);
         Element element2 = new Element(2);
         Element element3 = new Element(3);
@@ -18,10 +18,10 @@ public class QueueTest {
         System.out.println(queue.printQueueArray());
 
 
-        queue.insertAfterKth(2, new Element(6));
-        queue.deleteKth(3);
+        queue.insertAfterKth(1, new Element(6));
+        queue.insertAfterLargest(9);
         System.out.println(queue.printQueueArray());
-        System.out.println(queue.minimum());
+
 
 
 

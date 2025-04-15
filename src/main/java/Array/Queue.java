@@ -104,7 +104,7 @@ public class Queue {
         int minimum = array[first].getData() ;
         int currentIndex = first;
 
-        while(currentIndex != last){
+        while(array[currentIndex] != null){
             if (array[currentIndex].getData()<minimum){
                 minimum = array[currentIndex].getData();
             }
@@ -113,6 +113,59 @@ public class Queue {
 
         return minimum;
     }
+
+    //4. Write a method which removes and returns the second item from the
+    //queue. Write the function for both array and linked list implementa-
+    //tions. Your methods should run in O(1) time. Do not use any class or
+    //external methods except isEmpty().
+    //Element dequeue2nd()
+    //Node∗ dequeue2nd()
+    public Element dequeue2nd(){
+        int secondItemIndex = (first +1)%N ;
+        Element result = array[secondItemIndex];
+        array[secondItemIndex] = null;
+        return result;
+
+    }
+
+    //5. Write a function that inserts a new element after the largest element
+    //of the queue. Write the function for array implementation. You are
+    //not allowed to use any queue methods, just attributes, constructors,
+    //getters and setters.
+    //void insertAfterLargest (int data)
+
+    public void insertAfterLargest (int data){
+        int max = array[first].getData();
+        int current = first;
+        int largestIndex = first;
+
+        while (array[current] != null){
+            if(array[current].getData()>max){
+                max= array[current].getData();
+                largestIndex = current;
+            }
+            current = (current + 1)%N;
+        }
+
+        while (current != largestIndex){
+            array[(current +1)%N] = array[current];
+            current = (current - 1 + N)%N;
+        }
+
+        int insertionIndex =  (largestIndex+1)%N;
+        array[insertionIndex] = new Element(data);
+    }
+
+    //13. Write another constructor method
+    //void Queue(Queue[] list )
+    //which constructs a new array based queue by adding the elements in
+    //the list of queues one by one. So, the first k elements of the original
+    //queue will be constructed with the first elements of the k queues in
+    //the list; the second k elements of the original queue will be constructed
+    //with the second elements of the k queues in the list etc. The elements
+    //from queues should be recreated (not copied from the queues). You are
+    //not allowed to use enqueue, dequeue, isEmpty functions. You should
+    //solve the question for array implementation.
 
 
 }

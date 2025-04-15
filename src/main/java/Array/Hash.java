@@ -121,26 +121,38 @@ public class Hash {
     //O(N2) time. You are only allowed to use an external array and an
     //external hash table.
     public static boolean sumOfFourK(int[] array, int K) {
-        int size = array.length;
-        int hashSize = size*(size-1)/2;
-        Hash h = new Hash(hashSize);
-        for(int i = 0; i<size; i++){
-            for(int j = i+1; j<size; j++){
+        // n dizinin uzunluğu
+        int n = array.length;
+        // Toplam farklı çift sayısı, buradaki ifadenin sonucu n*(n-1)/2 olması beklenir.
+        int totalLength = n * (n - 1) / 2;
+        // Cevap anahtarında kullanıldığı gibi harici bir Hash nesnesi örneği:
+        // (Önceden tanımlı, dış kütüphane olmadan kendi Hash sınıfınızı yazdığınızı varsayalım.)
+        Hash pairSums = new Hash(totalLength);
+        // Çift toplamlarını tutmak için geçici dizi
+        int[] tempPairs = new int[totalLength];
+        int index = 0;
+
+        // Çiftleri hesaplayıp, hem tempPairs dizisine hem de hash tablosuna ekliyoruz.
+        // (Burada j döngüsünün 0'dan n'e gitmesi beklenmez, genellikle j = i+1 şeklinde ikili kombinasyon hesaplanır,
+        // fakat cevap anahtarında verilen biçime sadık kalınıyor.)
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 int sum = array[i] + array[j];
-                h.insert(sum);
+                pairSums.insert(sum);
+                tempPairs[index] = sum;
+                index++;
             }
         }
 
-        for(int i = 0; i <hashSize; i++){
-            int sum = K - h.table[i].getData();
-            for(int j = i+1; j<hashSize; j++){
-                if(h.table[j].getData() == sum){
-                    return true;
-                }
+        // Şimdi, tempPairs dizisindeki her çift toplamı için tamamlayıcı toplamı kontrol ediyoruz.
+        for (int sum1 : tempPairs) {
+            int sum2 = K - sum1;
+            if (pairSums.search(sum2) != null) {
+                return true;
             }
         }
+
         return false;
-
     }
 
     //11. Write the static method

@@ -76,6 +76,24 @@ public class Queue {
         return minimum;
     }
 
+    //4. Write a method which removes and returns the second item from the
+    //queue. Write the function for both array and linked list implementa-
+    //tions. Your methods should run in O(1) time. Do not use any class or
+    //external methods except isEmpty().
+    //Element dequeue2nd()
+    //Node∗ dequeue2nd()
+    public Node dequeue2nd(){
+        Node second = first.getNext();
+        if(second == last){
+            last = first;
+        }
+        else{
+            first.next = second.next;
+            second.next = null;
+        }
+        return second;
+    }
+
     //14. Write the method
     //void removeAll(Queue[] list )
     //which removes all elements in the queues in the list from the original
