@@ -166,6 +166,33 @@ public class Queue {
     //from queues should be recreated (not copied from the queues). You are
     //not allowed to use enqueue, dequeue, isEmpty functions. You should
     //solve the question for array implementation.
+    public void Queue(Queue[] list) {
+        int totalCapacity = 0;
+        for (Queue q : list) {
+            totalCapacity += (q.last - q.first) % q.N;
+        }
+
+        this.array = new Element[totalCapacity + 1];
+        this.first = 0;
+        this.last = 0;
+        this.N = totalCapacity + 1;
+
+        boolean hasElements = true;
+        int index = 0;
+        while (hasElements) {
+            hasElements = false;
+            for (Queue q : list) {
+                if (index < (q.last - q.first) % q.N) {
+                    Element element = q.array[(q.first + index) % q.N];
+                    this.array[this.last] = new Element(element.getData());
+                    this.last++;
+                    hasElements = true;
+                }
+            }
+            index++;
+        }
+    }
+
 
 
 }

@@ -100,43 +100,28 @@ public class Queue {
     //queue. You are not allowed to use enqueue, dequeue, isEmpty func-
     //tions. You should solve the question for list implementation.
     public void removeAll(Queue[] list) {
-        Node current = first;
-        Node prev = null;
-
-        while (current != null) {
-            boolean remove = false;
-            // List parametresindeki her kuyruğu kontrol ediyoruz
-            for (Queue queue : list) {
-                Node queueCurrent = queue.first;
-                while (queueCurrent != null) {
-                    // Karşılaştırma: gerekli ise equals() de kullanılabilir.
-                    if (current.getData() == queueCurrent.getData()) {
-                        remove = true;
-                        break;  // Inner döngüden çık
+        for (Queue q : list) {
+            Node tmp = q.first;
+            while (tmp != null) {
+                int value = tmp.getData();
+                Node before = null;
+                Node current = first;
+                while (current != null) {
+                    if (current.getData() == value) {
+                        if (before != null) {
+                            before.next = current.next;
+                        } else {
+                            first = current.next;
+                        }
+                        if (current == last){
+                            last = before;
+                        }
+                    } else {
+                        before = current;
                     }
-                    queueCurrent = queueCurrent.getNext();
+                    current = current.next;
                 }
-                if (remove) break;
-            }
-
-            if (remove) {
-                // current silinecek:
-                if (current == first) {
-                    first = current.getNext();
-                    // Eğer silinen düğüm ilk düğümse, prev bir güncelleme yapmadan current'i first yapabiliriz.
-                    current = first;
-                } else {
-                    prev.setNext(current.getNext());
-                    // Eğer current son düğüm ise, last'i prev yapıyoruz.
-                    if (current == last) {
-                        last = prev;
-                    }
-                    current = current.getNext();
-                }
-            } else {
-                // Eğer silme yapılmadıysa, normal ilerleyelim.
-                prev = current;
-                current = current.getNext();
+                tmp = tmp.next;
             }
         }
     }
