@@ -65,49 +65,29 @@ public class Hash {
     //it contains the same number twice. Your method should run in O(N)
     //time. Do not use external data structures or hash tables.
     public boolean isValid() {
-        // First check for duplicates within each linked list
         for (int i = 0; i < N; i++) {
             LinkedList list = table[i];
-            if (!list.isEmpty()) {
-                Node current = list.getHead();
-                while (current != null) {
-                    // Check for duplicates in the same list
-                    Node runner = current.next;
-                    while (runner != null) {
-                        if (current.data == runner.data) {
-                            return false; // Found duplicate
-                        }
-                        runner = runner.next;
-                    }
-                    current = current.next;
+            Node current = list.getHead();
+            while (current != null) {
+                Node searchNode = search(current.data);
+                if (searchNode != null && searchNode == current) {
+                    return false; // Duplicate found
                 }
+                current = current.getNext();
             }
+
+
         }
-
-        // Then check across different linked lists for elements that should hash to the same bucket
-        for (int i = 0; i < N; i++) {
-            for (int j = i + 1; j < N; j++) {
-                LinkedList list1 = table[i];
-                LinkedList list2 = table[j];
-
-                if (!list1.isEmpty() && !list2.isEmpty()) {
-                    Node current = list1.getHead();
-                    while (current != null) {
-                        Node other = list2.getHead();
-                        while (other != null) {
-                            // If two different elements hash to different buckets but have same value
-                            if (current.data == other.data) {
-                                return false; // Found duplicate
-                            }
-                            other = other.next;
-                        }
-                        current = current.next;
-                    }
-                }
-            }
-        }
-
-        return true; // No duplicates found
+        return true;
     }
+
+
+    //15. Write a static method
+    //int [] union(int[] list1 , int[] list2 )
+    //to find the union of the elements in two arrays and return a new array.
+    //The union array should contain only that many items not more not
+    //less. Your method should run in O(N) time, where N is the number
+    //of elements in the arrays. Do not use any external data structures or
+    //arrays except the resulting array and an external hash table.
 
 }

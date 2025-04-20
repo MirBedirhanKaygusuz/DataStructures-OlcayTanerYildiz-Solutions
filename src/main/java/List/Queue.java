@@ -106,6 +106,7 @@ public class Queue {
                 int value = tmp.getData();
                 Node before = null;
                 Node current = first;
+
                 while (current != null) {
                     if (current.getData() == value) {
                         if (before != null) {
@@ -121,6 +122,7 @@ public class Queue {
                     }
                     current = current.next;
                 }
+
                 tmp = tmp.next;
             }
         }

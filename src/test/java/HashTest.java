@@ -1,8 +1,8 @@
-import Array.Hash;
+import List.Hash;
 
 public class HashTest {
     public static void main(String[] args) {
-        Hash hash = new Hash(10);
+        List.Hash hash = new Hash(10);
         hash.insert(1);
         hash.insert(2);
         hash.insert(3);
