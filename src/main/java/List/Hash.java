@@ -65,29 +65,21 @@ public class Hash {
     //it contains the same number twice. Your method should run in O(N)
     //time. Do not use external data structures or hash tables.
     public boolean isValid() {
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i<N; i++){
             LinkedList list = table[i];
             Node current = list.getHead();
-            while (current != null) {
-                Node searchNode = search(current.data);
-                if (searchNode != null && searchNode == current) {
-                    return false; // Duplicate found
+            while (current != null){
+                Node search = search(current.data);
+                if(search != null && search == current){
+                    return false;
                 }
                 current = current.getNext();
             }
-
-
         }
         return true;
+
     }
 
 
-    //15. Write a static method
-    //int [] union(int[] list1 , int[] list2 )
-    //to find the union of the elements in two arrays and return a new array.
-    //The union array should contain only that many items not more not
-    //less. Your method should run in O(N) time, where N is the number
-    //of elements in the arrays. Do not use any external data structures or
-    //arrays except the resulting array and an external hash table.
 
 }

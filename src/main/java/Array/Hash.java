@@ -201,5 +201,50 @@ public class Hash {
     }
 
 
+    //15. Write a static method
+    //int [] union(int[] list1 , int[] list2 )
+    //to find the union of the elements in two arrays and return a new array.
+    //The union array should contain only that many items not more not
+    //less. Your method should run in O(N) time, where N is the number
+    //of elements in the arrays. Do not use any external data structures or
+    //arrays except the resulting array and an external hash table.
+    public static int[] union(int[] list1, int[] list2) {
+        int hashN = list1.length + list2.length;
+        Hash hash = new Hash(hashN);
+
+        // 1. Duplicate'leri engelleyerek ekleme
+        for (int num : list1) {
+            if (hash.search(num) == null) {
+                hash.insert(num);
+            }
+        }
+
+        for (int num : list2) {
+            if (hash.search(num) == null) {
+                hash.insert(num);
+            }
+        }
+
+        // 2. Kaç benzersiz eleman var?
+        int count = 0;
+        for (int i = 0; i < hashN; i++) {
+            if (hash.table[i] != null && !hash.deleted[i]) {
+                count++;
+            }
+        }
+
+        // 3. Sonuç dizisini oluştur
+        int[] result = new int[count];
+        int index = 0;
+
+        for (int i = 0; i < hashN; i++) {
+            if (hash.table[i] != null && !hash.deleted[i]) {
+                result[index++] = hash.table[i].getData();
+            }
+        }
+
+        return result;
+    }
+
 
 }

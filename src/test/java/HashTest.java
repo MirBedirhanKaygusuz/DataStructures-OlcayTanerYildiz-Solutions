@@ -1,25 +1,26 @@
-import List.Hash;
+import Array.Hash;
 
 public class HashTest {
     public static void main(String[] args) {
-        List.Hash hash = new Hash(10);
-        hash.insert(1);
-        hash.insert(2);
-        hash.insert(3);
-        hash.insert(4);
-        hash.insert(5);
-        hash.insert(6);
-        hash.insert(7);
-        hash.insert(8);
-        hash.insert(9);
-        hash.insert(10);
+        Hash hash = new Hash(12);
 
-        int[] array = new int[10];
-        for (int i = 0; i < 10; i++){
-            array[i] = i;
+
+        int[] array1 = new int[10];
+        int[] array2 = new int[10];
+        for (int i = 0; i < 10; i++) {
+            array1[i] = i;
+            array2[i] = i;
         }
 
-        System.out.println(array.length);
+        // Burada union() fonksiyonu döndürdüğü sonucu bir değişkene atıyoruz:
+        int[] result = hash.union(array1, array2);
+
+        // Sonucu yazdır
+        System.out.println("Union sonucu:");
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
+        }
+
     }
 
 
