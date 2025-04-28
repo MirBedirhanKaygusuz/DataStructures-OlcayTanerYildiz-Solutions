@@ -35,6 +35,9 @@ public class Queue {
         }
         return result;
     }
+
+    //--------------------------------------Questions and Solutions-----------------------------------------------------
+
     //1. Write a function that adds a new element after the K’th (K ≥ 0)
     //element of the queue. Write the function for both array and linked
     //list implementations. You can safely assume that, there are at least K
@@ -94,30 +97,66 @@ public class Queue {
         return second;
     }
 
+    //12. Write the method
+    //Queue[] divideQueue(int k)
+    //which constructs an array of list based queues by dividing the origi-
+    //nal queue into k equal parts. The first, second,..., k’th element of
+    //the original queue will be the first element of the first, second,..., k’th
+    //output queues, etc. The elements of the output queues should be recre-
+    //ated (not copied from the original queue). You are not allowed to use
+    //enqueue, dequeue, isEmpty functions. You should solve the question
+    //for list implementation.
+    public Queue[] divideQueue(int k) {
+        // Create array of k new queues
+        Queue[] list = new Queue[k];
+        for (int i = 0; i < k; i++) {
+            list[i] = new Queue();
+        }
+
+        Node current = first;
+        int queueIndex = 0;
+
+        while (current != null) {
+            Node newNode = new Node(current.data);
+            if (list[queueIndex].first == null) {
+                list[queueIndex].first = newNode;
+            } else {
+                list[queueIndex].last.next = newNode;
+            }
+            list[queueIndex].last = newNode;
+            queueIndex = (queueIndex + 1) % k;
+            current = current.next;
+        }
+
+        return list;
+    }
+
     //14. Write the method
     //void removeAll(Queue[] list )
     //which removes all elements in the queues in the list from the original
     //queue. You are not allowed to use enqueue, dequeue, isEmpty func-
     //tions. You should solve the question for list implementation.
     public void removeAll(Queue[] list) {
-        for (Queue q : list) {
-            Node tmp = q.first;
-            while (tmp != null) {
-                int value = tmp.getData();
-                Node before = null;
-                Node current = first;
 
-                while (current != null) {
-                    if (current.getData() == value) {
-                        if (before != null) {
+        for(Queue q: list){
+            Node tmp = q.first;
+            while (tmp != null){
+                Node current = first;
+                Node before = null;
+                int value = tmp.getData();
+                while( current!= null){
+                    if(value == current.getData()){
+                        if(before ==null){
+                            first = first.getNext();
+                        } else{
                             before.next = current.next;
-                        } else {
-                            first = current.next;
                         }
-                        if (current == last){
+
+                        if(current == last){
                             last = before;
                         }
-                    } else {
+                    }
+                    else {
                         before = current;
                     }
                     current = current.next;

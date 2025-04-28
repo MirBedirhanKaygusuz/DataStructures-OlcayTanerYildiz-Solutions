@@ -13,6 +13,7 @@ public class TreeTest {
         tree.iterativeInsert(new TreeNode(10));
         tree.iterativeInsert(new TreeNode(2));
         tree.iterativeInsert(new TreeNode(6));
+        tree.getRoot().prettyPrint(0);
         int[] result = tree.getRoot().collectNodes();
 
         System.out.print("Sıralı sonuç: ");

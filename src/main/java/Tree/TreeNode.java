@@ -1,5 +1,12 @@
 package Tree;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Element;
+
 public class TreeNode {
 
     protected TreeNode left;
@@ -193,8 +200,31 @@ public class TreeNode {
         return numOfNodes;
     }
 
+    //17. Write the recursive method
+    //void accumulateLeafNodes(Queue queue)
+    //in TreeNode class which accumulates the contents (integer as data field)
+    //of all leaf nodes in queue. For queue, you are only allowed to use
+    //enqueue function. You should use array implementation for the queue
+    //in this question.
+    public void accumulateLeafNodes(Queue queue) {
 
-    //20. Write the recursive method
+        if(left == null && right == null){
+            Element element = new Element(this);
+            queue.enqueue(element);
+        }
+
+        if(left != null){
+            left.accumulateLeafNodes(queue);
+        }
+
+        if(right != null){
+            right.accumulateLeafNodes(queue);
+        }
+
+    }
+
+
+        //20. Write the recursive method
     //int sumOfNodesBetween(int p, int q)
     //in TreeNode class which returns the sum of the keys between p and q
     //in the tree. Your algorithm should run in O(log N + K), where K is
@@ -223,8 +253,19 @@ public class TreeNode {
     //in TreeNode class, which collects all values in all nodes in the tree in a
     //sorted manner. You are not allowed to use any tree methods.
     public int[] collectNodes(){
-        int[] leftArr = (left != null) ? left.collectNodes() : new int[0];
-        int[] rightArr = (right != null) ? right.collectNodes() : new int[0];
+        int[] leftArr;
+        if (left != null) {
+            leftArr = left.collectNodes();
+        } else {
+            leftArr = new int[0];
+        }
+
+        int[] rightArr;
+        if (right != null) {
+            rightArr = right.collectNodes();
+        } else {
+            rightArr = new int[0];
+        }
 
         int[] merged = new int[leftArr.length + 1 + rightArr.length];
 
@@ -255,6 +296,8 @@ public class TreeNode {
         return merged;
 
     }
+
+
 
 
     //23. T1 and T2 are two binary trees. Write the recursive method

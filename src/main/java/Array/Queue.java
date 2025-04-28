@@ -53,6 +53,9 @@ public class Queue {
         return sb.toString();
     }
 
+    //--------------------------------------Questions and Solutions-----------------------------------------------------
+
+
     //1. Write a function that adds a new element after the K’th (K ≥ 0)
     //element of the queue. Write the function for both array and linked
     //list implementations. You can safely assume that, there are at least K
@@ -133,7 +136,6 @@ public class Queue {
     //not allowed to use any queue methods, just attributes, constructors,
     //getters and setters.
     //void insertAfterLargest (int data)
-
     public void insertAfterLargest (int data){
         int max = array[first].getData();
         int current = first;
@@ -155,6 +157,15 @@ public class Queue {
         int insertionIndex =  (largestIndex+1)%N;
         array[insertionIndex] = new Element(data);
     }
+
+    //11. Write the method for array implementation
+    //void cutPaste(Queue dest, int p, int q)
+    //which cuts all the elements between indexes p and q from the original
+    //queue and inserts at the end to the dest queue. You are not allowed to
+    //use enqueue, dequeue, isEmpty functions. You can assume the desti-
+    //nation queue has enough space for insertion. Your method should run
+    //in O(N) time.
+
 
     //13. Write another constructor method
     //void Queue(Queue[] list )

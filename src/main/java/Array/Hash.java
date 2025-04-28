@@ -2,6 +2,8 @@ package Array;
 
 import List.Node;
 
+import java.util.Arrays;
+
 public class Hash {
 
     private Element[] table;
@@ -56,6 +58,9 @@ public class Hash {
         deleted[address] = true;
     }
 
+    //--------------------------------------Questions and Solutions-----------------------------------------------------
+
+
     //2. Write function that finds the number of empty slots in an hash table
     //(For both array and linked list implementations).
     //int numberOfEmptySlots()
@@ -91,6 +96,91 @@ public class Hash {
             }
         }
         return count;
+    }
+
+
+    //10. Write a static method
+    //int[] sortByHashing(int[] array )
+    //that takes an array of integers as a parameter (which contains distinct
+    //numbers less than 2N, where N is the number of elements in the array)
+    //and returns the sorted version of that array. Your method should run
+    //in O(N) time. Do not use any external data structures or arrays except
+    //the resulting array and hash table. Hint: Find the maximum number
+    //in the array, the sorted array should contain only numbers less than
+    //that.
+    public static int[] sortByHashing(int[] array){
+        int size = array.length;
+        Hash hash = new Hash(size*2);
+        for(int i = 0; i<size; i++){
+            hash.insert(array[i]);
+
+        }
+
+        int[] result = new int[size];
+        int index = 0;
+
+        for(int i = 0; i<size*2 ;i++){
+            if(hash.search(i) != null){
+                System.out.println(i);
+                result[index] = i;
+                index++;
+            }
+        }
+
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+    //11. Write the static method
+    //int[] intersection (int[] list1 , int[] list2 )
+    //to find the intersection of the elements in two arrays and return a new
+    //array. Your method should run in O(N) time, where N is the number
+    //of elements in the arrays. Do not use any external data structures or
+    //arrays except the resulting array and hash table. The intersection array
+    //should contain only that many items not more not less. Hint: How can
+    //you search an element from the first list in the second list in O(1)?
+    public static int[] intersection(int[] list1, int[] list2) {
+        // Create a hash table for list1
+        Hash hash = new Hash(Math.max(list1.length, 1));
+        for (int num : list1) {
+            hash.insert(num);
+        }
+
+        // Create a hash to track which elements we've already found
+        Hash found = new Hash(Math.max(list2.length, 1));
+
+        // First pass: count elements in the intersection
+        int count = 0;
+        for (int num : list2) {
+            if (hash.search(num) != null && found.search(num) == null) {
+                count++;
+                found.insert(num);
+            }
+        }
+
+        // Create result array of exact size
+        int[] result = new int[count];
+
+        // Reset our tracking hash
+        found = new Hash(Math.max(list2.length, 1));
+
+        // Second pass: fill the result array
+        int index = 0;
+        for (int num : list2) {
+            if (hash.search(num) != null && found.search(num) == null) {
+                result[index++] = num;
+                found.insert(num);
+            }
+        }
+
+        return result;
     }
 
     //12. Write the static method in Hash class
@@ -155,50 +245,7 @@ public class Hash {
         return false;
     }
 
-    //11. Write the static method
-    //int[] intersection (int[] list1 , int[] list2 )
-    //to find the intersection of the elements in two arrays and return a new
-    //array. Your method should run in O(N) time, where N is the number
-    //of elements in the arrays. Do not use any external data structures or
-    //arrays except the resulting array and hash table. The intersection array
-    //should contain only that many items not more not less. Hint: How can
-    //you search an element from the first list in the second list in O(1)?
-    public static int[] intersection(int[] list1, int[] list2) {
-        // Create a hash table for list1
-        Hash hash = new Hash(Math.max(list1.length, 1));
-        for (int num : list1) {
-            hash.insert(num);
-        }
 
-        // Create a hash to track which elements we've already found
-        Hash found = new Hash(Math.max(list2.length, 1));
-
-        // First pass: count elements in the intersection
-        int count = 0;
-        for (int num : list2) {
-            if (hash.search(num) != null && found.search(num) == null) {
-                count++;
-                found.insert(num);
-            }
-        }
-
-        // Create result array of exact size
-        int[] result = new int[count];
-
-        // Reset our tracking hash
-        found = new Hash(Math.max(list2.length, 1));
-
-        // Second pass: fill the result array
-        int index = 0;
-        for (int num : list2) {
-            if (hash.search(num) != null && found.search(num) == null) {
-                result[index++] = num;
-                found.insert(num);
-            }
-        }
-
-        return result;
-    }
 
 
     //15. Write a static method
@@ -245,6 +292,7 @@ public class Hash {
 
         return result;
     }
+
 
 
 }

@@ -227,6 +227,21 @@ public class Tree {
         return count;
     }
 
+    //--------------------------------------Questions and Solutions-----------------------------------------------------
+
+
+
+    //18. Write a non-recursive method
+    //double simulateSearch(int N)
+    //in Tree class, which first finds the minimum (A) and maximum (B)
+    //elements in the tree. The method will then randomly search a number
+    //between [A, B] N times and returns the average number of nodes visited
+    //in this search. You are not allowed to use any tree methods.
+
+
+
+
+
     //24. Write the non-recursive method
     //int product()
     //in Tree class that computes the products of all keys in a binary search
