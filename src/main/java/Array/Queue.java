@@ -165,7 +165,33 @@ public class Queue {
     //use enqueue, dequeue, isEmpty functions. You can assume the desti-
     //nation queue has enough space for insertion. Your method should run
     //in O(N) time.
+    public void cutPaste(Queue dest, int p, int q){
+        int startIndex = (first + p)%N;
+        int endIndex = (first + q)%N;
 
+        int currentındex = startIndex;
+        int count = 0;
+
+        while(currentındex != endIndex){
+            if(dest.isEmpty()){
+                dest.array[last] = new Element(array[currentındex].getData());
+                dest.last = (dest.last+1)%dest.N;
+                count++;
+            }
+        }
+        int shiftIndex = endIndex;
+        int targetındex = startIndex;
+
+        while(shiftIndex != last){
+            array[targetındex] = array[shiftIndex];
+            array[shiftIndex] = null;
+            shiftIndex = (shiftIndex +1)%N;
+            targetındex = (targetındex +1)%N;
+        }
+
+        last = (last-count+N)%N;
+
+    }
 
     //13. Write another constructor method
     //void Queue(Queue[] list )
